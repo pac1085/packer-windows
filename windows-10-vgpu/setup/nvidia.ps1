@@ -27,6 +27,7 @@ if ($connTestResult.TcpTestSucceeded){
   {
 	Start-Process C:\$7za -ArgumentList $7zaArgs -PassThru -wait
 	Start-Process C:\NVIDIA\setup.exe -ArgumentList $listConfig -PassThru -Wait
+	New-Item -path "HKLM:\Software\NVIDIA Corporation\Global" -name GridLicensing -force
 	New-ItemProperty -path "HKLM:\Software\NVIDIA Corporation\Global\GridLicensing" -name "ServerAddress" -value "$licenseServer" -propertytype string -force
 	New-ItemProperty -path "HKLM:\Software\NVIDIA Corporation\Global\GridLicensing" -name "ServerPort" -value "$licenseServerPort" -propertytype string -force
   }
