@@ -7,7 +7,7 @@ $installer = "452.96_grid_win10_server2016_server2019_64bit_international.exe"
 $7zaArgs = "x C:\$installer -oC:\NVIDIA\"
 $licenseServer = "192.168.51.55"
 $licenseServerPort = "7070"
-$listConfig = "/s /v `"/qn REBOOT=ReallySuppress`""
+$listConfig = "/s"
 
 # Verify connectivity
 $connTestResult = Test-NetConnection -Computername $webserver -Port 80
@@ -26,10 +26,10 @@ if ($connTestResult.TcpTestSucceeded){
   Try 
   {
 	Start-Process C:\$7za -ArgumentList $7zaArgs -PassThru -wait
-	Start-Process C:\NVIDIA\setup.exe -ArgumentList $listConfig -PassThru -Wait
 	New-Item -path "HKLM:\Software\NVIDIA Corporation\Global" -name GridLicensing -force
 	New-ItemProperty -path "HKLM:\Software\NVIDIA Corporation\Global\GridLicensing" -name "ServerAddress" -value "$licenseServer" -propertytype string -force
 	New-ItemProperty -path "HKLM:\Software\NVIDIA Corporation\Global\GridLicensing" -name "ServerPort" -value "$licenseServerPort" -propertytype string -force
+	Start-Process C:\NVIDIA\setup.exe -ArgumentList $listConfig -PassThru -Wait
   }
   Catch
   {
