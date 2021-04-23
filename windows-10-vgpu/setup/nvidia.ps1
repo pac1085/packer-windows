@@ -7,7 +7,7 @@ $installer = "452.96_grid_win10_server2016_server2019_64bit_international.exe"
 $7zaArgs = "x C:\$installer -oC:\NVIDIA\"
 $licenseServer = "192.168.51.55"
 $licenseServerPort = "7070"
-$listConfig = "/s /v `" REBOOT=ReallySuppress`""
+$listConfig = "/s /v `"/qn REBOOT=ReallySuppress`""
 
 # Verify connectivity
 $connTestResult = Test-NetConnection -Computername $webserver -Port 80
