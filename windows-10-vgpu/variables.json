@@ -1,0 +1,11 @@
+{
+    "vcenter_server":"192.168.128.215",
+    "username":"administrator@vsphere.local",
+    "password":"VMware1!",
+    "datastore":"VDI",
+    "datastore_iso":"Templates",
+    "cluster": "c240m3",
+    "network": "VLAN51",
+    "winrm_username": "Administrator",
+    "winrm_password": "VMware1!"
+}

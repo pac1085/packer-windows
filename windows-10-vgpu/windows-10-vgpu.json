@@ -1,0 +1,71 @@
+{
+  "builders": [
+    {
+      "CPUs": 8,
+      "RAM": 16384,
+      "RAM_reserve_all": true,
+	  "vgpu_profile": "grid_p4-2q",
+      "boot_order": "disk,cdrom",
+      "cluster": "{{user `cluster`}}",
+      "communicator": "winrm",
+      "create_snapshot": "false",
+      "datastore": "{{user `datastore`}}",
+      "disk_controller_type": "pvscsi",
+	  "usb_controller": "xhci",
+	  "firmware": "bios",
+      "floppy_files": [
+        "{{template_dir}}/setup/"
+      ],
+      "floppy_img_path": "[{{user `datastore_iso`}}] Floppies/pvscsi-Windows8.flp",
+      "guest_os_type": "windows9_64Guest",
+      "insecure_connection": "true",
+	  "remove_cdrom": true,
+      "iso_paths": [
+        "[{{user `datastore_iso`}}] ISOs/Windows 10/SW_DVD9_WIN_PRO_10_20H2.3_64BIT_ENGLISH_PRO_ENT_EDU_N_MLF_-2_X22-50328.ISO",
+        "[{{user `datastore_iso`}}] ISOs/VMware-tools-windows-11.2.5-17337674.iso"
+      ],
+      "network_adapters": [
+        {
+          "network": "{{user `network`}}",
+          "network_card": "vmxnet3"
+        }
+      ],
+      "password": "{{user `password`}}",
+      "storage": [
+        {
+          "disk_size": 51200,
+          "disk_thin_provisioned": true
+        }
+      ],
+	  "configuration_parameters": {
+		"devices.hotplug": "FALSE"
+	  },
+	  "content_library_destination" : {
+		"library": "ContentLibrary",
+		"ovf": true
+	},
+      "type": "vsphere-iso",
+      "username": "{{user `username`}}",
+      "vcenter_server": "{{user `vcenter_server`}}",
+      "vm_name": "W10-20H2-TestGPU",
+      "vm_version": 13,
+      "winrm_password": "{{user `winrm_password`}}",
+      "winrm_username": "{{user `winrm_username`}}"
+    }
+  ],
+  "provisioners": [
+	{
+	  "scripts": [
+        "{{template_dir}}/setup/nvidia.ps1"
+      ],
+      "type": "powershell"
+    },
+	{
+      "inline": [
+        "Get-EventLog -LogName * | ForEach { Clear-EventLog -LogName $_.Log }"
+      ],
+      "type": "powershell"
+    }
+  ]
+}
+
