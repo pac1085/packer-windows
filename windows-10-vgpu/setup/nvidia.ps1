@@ -3,8 +3,8 @@ $ErrorActionPreference = "Stop"
 $webserver = "192.168.51.55"
 $url = "http://" + $webserver
 $7za = "7za.exe"
-$7zaArgs = "x C:\$installer -oC:\NVIDIA\"
 $installer = "452.96_grid_win10_server2016_server2019_64bit_international.exe"
+$7zaArgs = "x C:\$installer -oC:\NVIDIA\"
 $licenseServer = "192.168.51.55"
 $listConfig = "/s"
 
