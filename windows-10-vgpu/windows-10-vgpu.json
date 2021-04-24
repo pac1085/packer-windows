@@ -40,14 +40,10 @@
 	  "configuration_parameters": {
 		"devices.hotplug": "FALSE"
 	  },
-	  "content_library_destination" : {
-		"library": "ContentLibrary",
-		"ovf": true
-	},
       "type": "vsphere-iso",
       "username": "{{user `username`}}",
       "vcenter_server": "{{user `vcenter_server`}}",
-      "vm_name": "W10-20H2-TestGPU",
+      "vm_name": "W10-20H2-TestGPU2",
       "vm_version": 13,
       "winrm_password": "{{user `winrm_password`}}",
       "winrm_username": "{{user `winrm_username`}}"
@@ -60,6 +56,10 @@
       ],
       "type": "powershell"
     },
+	{
+		"type": "windows-restart",
+		"check_registry": true
+	},
 	{
       "inline": [
         "Get-EventLog -LogName * | ForEach { Clear-EventLog -LogName $_.Log }"
